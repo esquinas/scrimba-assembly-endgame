@@ -1,5 +1,5 @@
 {
-  "name": "Scrim-s06j0bb",
+  "name": "6-assembly-endgame",
   "description": "https://scrimba.com/learn-react-c0e/~0xts/s0d9cqfbci/head",
   "scripts": {
     "start": "vite",
@@ -8,8 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "19.0.0-rc-a99d8e8d-20240916",
-    "react-dom": "19.0.0-rc-a99d8e8d-20240916",
+    "react": "^19.0",
+    "react-dom": "^19.0",
     "vite": "latest"
   },
   "devDependencies": {
