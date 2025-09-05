@@ -16,15 +16,33 @@ export default function AssemblyEndgame() {
   const letterElements = currentWord.split("").map((letter, index) => (
     <span className="char-box" key={index + letter}>{ letter }</span>
   ))
-  const alphabetButtons = alphabet.split("").map((letter, index) => (
-    <button key={letter + index} onClick={_ => { addGuessedLetter(letter) }}>
-      { letter }
-    </button>
-  ))
+  const alphabetButtons = alphabet.split("").map((letter, index) => {
+    let color = undefined
+
+    switch (isLetterInWord(letter)) {
+      case true:
+        color = "correct"
+        break
+      case false:
+        color = "wrong"
+        break
+    }
+
+    return (
+      <button className={color} key={letter + index} onClick={_ => { addGuessedLetter(letter) }}>
+        { letter }
+      </button>
+    )
+  })
 
   function addGuessedLetter(letter) {
     setGuessedLetters(prevLetters => prevLetters.includes(letter) ? prevLetters
                                                                   : [...prevLetters, letter])
+  }
+
+  function isLetterInWord(letter) {
+    if (!guessedLetters.includes(letter)) return null
+    return currentWord.includes(letter)
   }
 
   console.log(guessedLetters)
