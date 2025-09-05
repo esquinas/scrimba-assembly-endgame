@@ -60,9 +60,19 @@ export default function AssemblyEndgame() {
         <p>Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
       </header>
 
-      <section className="game-status">
-        <h3>You win!</h3>
-        <p>Well done! 🎉</p>
+      <section className={clsx("game-status", isGameWon && "won", isGameLost && "lost")}>
+        { isGameWon &&
+          <>
+            <h2>You win!</h2>
+            <p>Well done! 🎉</p>
+          </>
+        }
+        { isGameLost &&
+          <>
+            <h2>Game over!</h2>
+            <p>You lose! Better start learning Assembly 😭</p>
+          </>
+        }
       </section>
 
       <section className="language-chips">
