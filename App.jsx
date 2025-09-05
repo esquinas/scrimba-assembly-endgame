@@ -1,9 +1,10 @@
-import React from "react"
+import { useState } from "react"
 import Chip from "./Chip"
 import { languages } from "./languages"
 
 export default function AssemblyEndgame() {
-  const [currentWord, setCurrentWord] = React.useState("react")
+  const [currentWord, setCurrentWord] = useState("react")
+  const [guessedLetters, setGuessedLetters] = useState([])
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
   const languageChips = languages.map(lang => (
     <Chip key={lang.name}
@@ -15,9 +16,18 @@ export default function AssemblyEndgame() {
   const letterElements = currentWord.split("").map((letter, index) => (
     <span className="char-box" key={index + letter}>{ letter }</span>
   ))
-  const alphabetButtons = alphabet.split("").map((char, index) => (
-    <button key={char + index}>{ char }</button>
+  const alphabetButtons = alphabet.split("").map((letter, index) => (
+    <button key={letter + index} onClick={_ => { addGuessedLetter(letter) }}>
+      { letter }
+    </button>
   ))
+
+  function addGuessedLetter(letter) {
+    setGuessedLetters(prevLetters => prevLetters.includes(letter) ? prevLetters
+                                                                  : [...prevLetters, letter])
+  }
+
+  console.log(guessedLetters)
 
   return (
     <main className="text-center">
