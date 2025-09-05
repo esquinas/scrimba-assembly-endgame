@@ -12,3 +12,26 @@ body {
   display: flex;
   justify-content: center;
 }
+
+main {
+  max-width: 48ch;
+  min-width: 24ch;
+}
+
+header {
+  text-align: center;
+}
+
+header>h1,
+header>h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #f9f4da;
+}
+
+header>p {
+  font-size: 0.875rem;
+  max-width: 350px;
+  color: #8E8E8E;
+
+}
