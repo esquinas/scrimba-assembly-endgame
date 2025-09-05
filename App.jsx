@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { clsx } from "clsx"
 import Chip from "./Chip"
 import { languages } from "./languages"
 
@@ -17,19 +18,14 @@ export default function AssemblyEndgame() {
     <span className="char-box" key={index + letter}>{ letter }</span>
   ))
   const alphabetButtons = alphabet.split("").map((letter, index) => {
-    let color = undefined
-
-    switch (isLetterInWord(letter)) {
-      case true:
-        color = "correct"
-        break
-      case false:
-        color = "wrong"
-        break
-    }
+    const isLetterInWord = checkLetterIsInWord(letter)
+    const className = clsx({
+      correct: isLetterInWord === true,
+      wrong:   isLetterInWord === false,
+    })
 
     return (
-      <button className={color} key={letter + index} onClick={_ => { addGuessedLetter(letter) }}>
+      <button className={className} key={letter + index} onClick={_ => { addGuessedLetter(letter) }}>
         { letter }
       </button>
     )
@@ -40,7 +36,7 @@ export default function AssemblyEndgame() {
                                                                   : [...prevLetters, letter])
   }
 
-  function isLetterInWord(letter) {
+  function checkLetterIsInWord(letter) {
     if (!guessedLetters.includes(letter)) return null
     return currentWord.includes(letter)
   }
