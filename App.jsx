@@ -11,8 +11,9 @@ export default function AssemblyEndgame() {
     guessedLetters.filter(letter => !currentWord.includes(letter)).length
 
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
-  const languageChips = languages.map(lang => (
+  const languageChips = languages.map((lang, index) => (
     <Chip key={lang.name}
+      isLost={index < wrongGuessCount}
       name={lang.name}
       color={lang.color}
       backgroundColor={lang.backgroundColor}
