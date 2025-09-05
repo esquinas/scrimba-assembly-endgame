@@ -6,6 +6,10 @@ import { languages } from "./languages"
 export default function AssemblyEndgame() {
   const [currentWord, setCurrentWord] = useState("react")
   const [guessedLetters, setGuessedLetters] = useState([])
+
+  const wrongGuessCount =
+    guessedLetters.filter(letter => !currentWord.includes(letter)).length
+
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
   const languageChips = languages.map(lang => (
     <Chip key={lang.name}
@@ -43,7 +47,7 @@ export default function AssemblyEndgame() {
     return currentWord.includes(letter)
   }
 
-  console.log(guessedLetters)
+  console.log(wrongGuessCount)
 
   return (
     <main className="text-center">
