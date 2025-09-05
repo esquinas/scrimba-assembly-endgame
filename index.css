@@ -14,8 +14,8 @@ body {
 }
 
 main {
-  max-width: 48ch;
-  min-width: 24ch;
+  max-width: 52ch;
+  min-width: 25ch;
 }
 
 header {
@@ -89,12 +89,46 @@ header > * + * {
 .word > .char-box {
   text-transform: uppercase;
   text-align: center;
-  line-height: 2.70rem;
-  width: 2.75rem;
-  height: 2.75rem;
+  line-height: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
   font-weight: 600;
   font-size: 1.2rem;
   background-color: #323232;
   color: #F9F4DA;
   border-bottom: 0.1rem solid #F9F4DA;
+}
+
+.keyboard {
+  margin-block: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.keyboard > button {
+  background-color: #FCBA29;
+  color: #1E1E1E;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0.1rem solid #D7D7D7;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+button.new-game {
+  background-color: #11B5E5;
+  border: 0.1rem solid #D7D7D7;
+  border-radius: 4px;
+  width: 32ch;
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+  display: block;
+  margin-inline: auto;
+  cursor: pointer;
 }

@@ -4,6 +4,7 @@ import { languages } from "./languages"
 
 export default function AssemblyEndgame() {
   const [currentWord, setCurrentWord] = React.useState("react")
+  const alphabet = "abcdefghijklmnopqrstuvwxyz"
   const languageChips = languages.map(lang => (
     <Chip key={lang.name}
       name={lang.name}
@@ -12,7 +13,10 @@ export default function AssemblyEndgame() {
     />
   ))
   const letterElements = currentWord.split("").map((letter, index) => (
-    <span className="char-box" key={letter + index}>{ letter }</span>
+    <span className="char-box" key={index + letter}>{ letter }</span>
+  ))
+  const alphabetButtons = alphabet.split("").map((char, index) => (
+    <button key={char + index}>{ char }</button>
   ))
 
   return (
@@ -32,8 +36,14 @@ export default function AssemblyEndgame() {
       </section>
 
       <section className="word">
-        {letterElements }
+        { letterElements }
       </section>
+
+      <section className="keyboard">
+        { alphabetButtons }
+      </section>
+
+      <button className="new-game">New Game</button>
     </main>
   )
 }
