@@ -15,7 +15,9 @@ export default function AssemblyEndgame() {
     />
   ))
   const letterElements = currentWord.split("").map((letter, index) => (
-    <span className="char-box" key={index + letter}>{ letter }</span>
+    <span className="char-box" key={index + letter}>
+      { guessedLetters.includes(letter) && letter }
+    </span>
   ))
   const alphabetButtons = alphabet.split("").map((letter, index) => {
     const isLetterInWord = checkLetterIsInWord(letter)
