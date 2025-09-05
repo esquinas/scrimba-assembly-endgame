@@ -1,7 +1,16 @@
 import React from "react"
-
+import Chip from "./Chip"
+import { languages } from "./languages"
 
 export default function AssemblyEndgame() {
+  const languageChips = languages.map(lang => (
+    <Chip key={lang.name}
+      name={lang.name}
+      color={lang.color}
+      backgroundColor={lang.backgroundColor}
+    />
+  ))
+
   return (
     <main className="text-center">
       <header>
@@ -11,6 +20,9 @@ export default function AssemblyEndgame() {
       <section className="game-status">
         <h3>You win!</h3>
         <p>Well done! 🎉</p>
+      </section>
+      <section className="language-chips">
+        { languageChips }
       </section>
     </main>
   )
