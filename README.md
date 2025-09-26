@@ -1,11 +1,23 @@
 # Getting Started
-Install the dependencies and run the project
+Install the dependencies and build the project:
 ```
 npm install
-npm start
+npm run build
 ```
 
-Head over to https://vitejs.dev/ to learn more about configuring vite
+Head over to [vite.dev/](https://vite.dev/) to learn more about configuring vite
+
+## Development
+
+Run the project with hot reload:
+```
+npm run dev
+```
+
+## Screenshot
+
+<img width="1982" height="1494" alt="image" src="https://github.com/user-attachments/assets/3f608e33-ebe4-4577-a745-199357036846" />
+
 ## About Scrimba
 
 At Scrimba our goal is to create the best possible coding school at the cost of a gym membership! 💜
