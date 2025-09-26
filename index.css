@@ -46,7 +46,7 @@ header>*+* {
 .game-status {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s 2s, opacity 1s linear;
+  transition: visibility 0s 0.5s, opacity 0.25s linear;
   margin-block: 2rem;
   padding: 1rem;
   height: 5rem;
@@ -64,7 +64,7 @@ header>*+* {
 .game-status.farewell {
   visibility: visible;
   opacity: 1;
-  transition: opacity 2s linear;
+  transition: opacity 0.5s linear;
 }
 .game-status.won {
   background-color: #10A95B;

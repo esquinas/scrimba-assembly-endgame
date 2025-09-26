@@ -3,9 +3,10 @@ import { clsx } from "clsx/lite"
 import Chip from "./Chip"
 import { languages } from "./languages"
 import { getFarewellText } from "./farewells"
+import getRandomWord from "./getRandomWord"
 
 export default function AssemblyEndgame() {
-  const [currentWord, setCurrentWord] = useState("react")
+  const [currentWord, setCurrentWord] = useState(getRandomWord())
   const [guessedLetters, setGuessedLetters] = useState([])
 
   const numGuessesLeft = languages.length - 1
@@ -53,6 +54,11 @@ export default function AssemblyEndgame() {
       </button>
     )
   })
+
+  function startNewGame() {
+    setCurrentWord(_ => getRandomWord())
+    setGuessedLetters(_ => [])
+  }
 
   function addGuessedLetter(letter) {
     setGuessedLetters(prevLetters => prevLetters.includes(letter) ? prevLetters
@@ -138,7 +144,7 @@ export default function AssemblyEndgame() {
       </section>
 
       { isGameOver  &&
-        <button className="new-game" onClick={ () => { console.log('TODO') } }>New Game</button>
+        <button className="new-game" onClick={ _ => startNewGame() }>New Game</button>
       }
     </main>
   )
