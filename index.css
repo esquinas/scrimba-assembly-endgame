@@ -142,6 +142,9 @@ header>*+* {
   color: #F9F4DA;
   border-bottom: 0.1rem solid #F9F4DA;
 }
+.word>.char-box.wrong {
+  color: #EC5D49;
+}
 
 .keyboard {
   margin-block: 2rem;

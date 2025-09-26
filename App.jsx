@@ -30,11 +30,16 @@ export default function AssemblyEndgame() {
       backgroundColor={lang.backgroundColor}
     />
   ))
-  const letterElements = currentWord.split("").map((letter, index) => (
-    <span className="char-box" key={index + letter}>
-      { guessedLetters.includes(letter) && letter }
-    </span>
-  ))
+  const letterElements = currentWord.split("").map((letter, index) => {
+    const shouldRevealLetter = isGameLost || guessedLetters.includes(letter)
+    const letterClassName = clsx("char-box", isGameLost && !guessedLetters.includes(letter) && "wrong")
+
+    return (
+      <span className={letterClassName} key={index + letter}>
+        {shouldRevealLetter && letter }
+      </span>
+    )
+  })
   const alphabetButtons = alphabet.split("").map((letter, index) => {
     const isLetterInWord = checkLetterIsInWord(letter)
     const className = clsx(
