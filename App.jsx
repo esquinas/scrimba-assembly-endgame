@@ -106,8 +106,6 @@ export default function AssemblyEndgame() {
     return null
   }
 
-  console.log({ lostLanguage, farewellText, guessedLetters, lastGuessedLetter, isGameIdle })
-
   return (
     <main className="text-center">
       { isGameWon && <Confetti numberOfPieces={600} initialVelocityY={{ min: 0, max: 20 }} recycle={false} /> }
