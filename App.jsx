@@ -8,12 +8,13 @@ export default function AssemblyEndgame() {
   const [currentWord, setCurrentWord] = useState("react")
   const [guessedLetters, setGuessedLetters] = useState([])
 
+  const numGuessesLeft = languages.length - 1
   const wrongGuessCount =
     guessedLetters.filter(letter => !currentWord.includes(letter)).length
   const lastGuessedLetter = guessedLetters.at(-1)
   const isGameIdle = (!lastGuessedLetter) || currentWord.includes(lastGuessedLetter)
   const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter))
-  const isGameLost = wrongGuessCount >= languages.length - 1
+  const isGameLost = wrongGuessCount >= numGuessesLeft
   const isGameOver = isGameWon || isGameLost
   const isGameFarewell = !(isGameOver || isGameIdle)
   const lostLanguage = languages[wrongGuessCount - 1]
@@ -45,7 +46,8 @@ export default function AssemblyEndgame() {
         key={letter + index}
         onClick={_ => { addGuessedLetter(letter) }}
         disabled={isGameOver}
-        aria-disabled={isGameOver}
+        aria-disabled={guessedLetters.includes(letter)}
+        aria-label={`Letter ${letter}`}
       >
         { letter }
       </button>
@@ -101,7 +103,8 @@ export default function AssemblyEndgame() {
         <p>Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
       </header>
 
-      <section className={clsx("game-status", isGameWon && "won", isGameLost && "lost", (isGameFarewell) && "farewell")}>
+      <section className={clsx("game-status", isGameWon && "won", isGameLost && "lost", (isGameFarewell) && "farewell")}
+        aria-live="polite" role="status" >
         { renderGameStatus() }
       </section>
 
@@ -111,6 +114,23 @@ export default function AssemblyEndgame() {
 
       <section className="word">
         { letterElements }
+      </section>
+
+      <section className="sr-only" aria-live="polite" role="status">
+        <p>
+          {
+            lastGuessedLetter && (
+              currentWord.includes(lastGuessedLetter) ?
+                `Correct! The letter ${lastGuessedLetter.toUpperCase()} is in the word.` :
+                `Sorry, the letter ${lastGuessedLetter.toUpperCase()} is not in the word.`
+              )
+          }
+        </p>
+        <p>Current word: {
+          currentWord.split("")
+            .map(letter =>guessedLetters.includes(letter) ? `${letter}. ` : "blank. ")
+            .join(" ")
+        }</p>
       </section>
 
       <section className="keyboard">
