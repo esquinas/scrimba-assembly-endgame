@@ -145,6 +145,7 @@ header>*+* {
 
 .keyboard {
   margin-block: 2rem;
+  user-select: none;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -171,6 +172,11 @@ header>*+* {
 
 .keyboard>button.correct {
   background-color: #10A95B;
+}
+
+.keyboard>button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 button.new-game {

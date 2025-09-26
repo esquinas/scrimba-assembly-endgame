@@ -15,7 +15,7 @@ export default function AssemblyEndgame() {
   const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter))
   const isGameLost = wrongGuessCount >= languages.length - 1
   const isGameOver = isGameWon || isGameLost
-  const isGameFarewell = !isGameOver && !isGameIdle
+  const isGameFarewell = !(isGameOver || isGameIdle)
   const lostLanguage = languages[wrongGuessCount - 1]
   const farewellText = getFarewellText(lostLanguage?.name)
 
@@ -41,7 +41,12 @@ export default function AssemblyEndgame() {
     )
 
     return (
-      <button className={className} key={letter + index} onClick={_ => { addGuessedLetter(letter) }}>
+      <button className={className}
+        key={letter + index}
+        onClick={_ => { addGuessedLetter(letter) }}
+        disabled={isGameOver}
+        aria-disabled={isGameOver}
+      >
         { letter }
       </button>
     )
@@ -113,7 +118,7 @@ export default function AssemblyEndgame() {
       </section>
 
       { isGameOver  &&
-        <button className="new-game">New Game</button>
+        <button className="new-game" onClick={ () => { console.log('TODO') } }>New Game</button>
       }
     </main>
   )
