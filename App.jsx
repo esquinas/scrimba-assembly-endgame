@@ -4,6 +4,7 @@ import Chip from "./Chip"
 import { languages } from "./languages"
 import { getFarewellText } from "./farewells"
 import getRandomWord from "./getRandomWord"
+import Confetti from "react-confetti"
 
 export default function AssemblyEndgame() {
   const [currentWord, setCurrentWord] = useState(getRandomWord())
@@ -109,6 +110,7 @@ export default function AssemblyEndgame() {
 
   return (
     <main className="text-center">
+      { isGameWon && <Confetti numberOfPieces={600} initialVelocityY={{ min: 0, max: 20 }} recycle={false} /> }
       <header>
         <h1>Assembly: Endgame</h1>
         <p>Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
