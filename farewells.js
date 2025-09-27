@@ -14,7 +14,7 @@ export function getFarewellText(language) {
     `${language} has left the building`,
     `The ${language} language is resting`,
     `${language} is stone dead`,
-    `This ${language} is not pinning for the fjords`,
+    `This ${language} is not pining for the fjords`,
     `The ${language} language is passed on`,
     `${language} is no more`,
     `${language} has ceased to be`,
