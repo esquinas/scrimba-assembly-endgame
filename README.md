@@ -18,6 +18,11 @@ npm run dev
 
 <img width="1982" height="1494" alt="image" src="https://github.com/user-attachments/assets/3f608e33-ebe4-4577-a745-199357036846" />
 
+## ToDo
+
+- [ ] Extract game components, reduce lines of code in `App.jsx`.
+- [ ] Organize codebase better into conventional folders: i.e. `src/`
+
 ## About Scrimba
 
 At Scrimba our goal is to create the best possible coding school at the cost of a gym membership! 💜
