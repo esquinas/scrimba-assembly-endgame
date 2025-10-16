@@ -2,6 +2,7 @@ import { useState } from "react"
 import { clsx } from "clsx/lite"
 import Chip from "./Chip"
 import HeadingCopy from "./HeadingCopy"
+import Keyboard from "./Keyboard"
 import StatusFarewell from "./StatusFarewell"
 import StatusLost from "./StatusLost"
 import StatusWon from "./StatusWon"
@@ -26,7 +27,6 @@ export default function AssemblyEndgame() {
   const isGameFarewell = !(isGameOver || isGameIdle)
   const lostLanguage = languages[wrongGuessCount - 1]
 
-  const alphabet = "abcdefghijklmnopqrstuvwxyz"
   const languageChips = languages.map((lang, index) => (
     <Chip key={lang.name}
       isLost={index < wrongGuessCount}
@@ -35,39 +35,10 @@ export default function AssemblyEndgame() {
       backgroundColor={lang.backgroundColor}
     />
   ))
-  const alphabetButtons = alphabet.split("").map((letter, index) => {
-    const isLetterInWord = checkLetterIsInWord(letter)
-    const className = clsx(
-      (isLetterInWord === true)  && "correct",
-      (isLetterInWord === false) && "wrong"
-    )
-
-    return (
-      <button className={className}
-        key={letter + index}
-        onClick={_ => { addGuessedLetter(letter) }}
-        disabled={isGameOver}
-        aria-disabled={guessedLetters.includes(letter)}
-        aria-label={`Letter ${letter}`}
-      >
-        { letter }
-      </button>
-    )
-  })
 
   function startNewGame() {
     setCurrentWord(_ => getRandomWord())
     setGuessedLetters(_ => [])
-  }
-
-  function addGuessedLetter(letter) {
-    setGuessedLetters(prevLetters => prevLetters.includes(letter) ? prevLetters
-                                                                  : [...prevLetters, letter])
-  }
-
-  function checkLetterIsInWord(letter) {
-    if (!guessedLetters.includes(letter)) return null
-    return currentWord.includes(letter)
   }
 
   function renderGameStatus() {
@@ -117,7 +88,13 @@ export default function AssemblyEndgame() {
       </section>
 
       <section className="keyboard">
-        { alphabetButtons }
+        <Keyboard alphabet="abcdefghijklmnopqrstuvwxyz"
+          classToggle={[ "wrong", "correct" ]}
+          currentWord={currentWord}
+          guessedLetters={guessedLetters}
+          disabled={isGameOver}
+          setGuessedLetters={setGuessedLetters}
+        />
       </section>
 
       { isGameOver  &&
