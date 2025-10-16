@@ -1,6 +1,6 @@
 export default function HeadingCopy(props) {
   const defaultTitle = 'Assembly: Endgame'
-  const defaultDescription = 'Guess the word in under 8 attempts to keep the programming world safe from Assembly!'
+  const defaultDescription = `Guess the word in under ${props.attempts} attempts to keep the programming world safe from Assembly!`
 
   return(
     <>

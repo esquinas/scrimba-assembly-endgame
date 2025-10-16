@@ -54,7 +54,7 @@ export default function AssemblyEndgame() {
     <main className="text-center">
       { game.isWon && <Confetti numberOfPieces={600} initialVelocityY={{ min: 0, max: 20 }} recycle={false} /> }
       <header>
-        <HeadingCopy />
+        <HeadingCopy attempts={ languages.length - 1 }/>
       </header>
 
       <section className={

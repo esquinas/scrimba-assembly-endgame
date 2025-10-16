@@ -1,6 +1,5 @@
 export default class GameStatus {
   #lastGuessedLetter
-  #numGuessesLeft
 
   constructor({ currentWord, guessedLetters, languages }) {
     this.currentWord = currentWord
@@ -9,7 +8,7 @@ export default class GameStatus {
     this.wrongGuessCount = guessedLetters.filter(letter => !currentWord.includes(letter)).length
     this.lostLanguage = languages[this.wrongGuessCount - 1]
     this.#lastGuessedLetter = guessedLetters.at(-1)
-    this.#numGuessesLeft = languages.length - 1
+    this.numGuessesLeft = languages.length - 1
   }
 
   get isIdle() {
@@ -21,7 +20,7 @@ export default class GameStatus {
     return this.currentWord.split("").every(letter => this.guessedLetters.includes(letter))
   }
   get isLost() {
-    return this.wrongGuessCount >= this.#numGuessesLeft
+    return this.wrongGuessCount >= this.numGuessesLeft
   }
   get isOver() {
     return this.isWon || this.isLost
