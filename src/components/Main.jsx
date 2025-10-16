@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { clsx } from "clsx/lite"
 import Chip from "./Chip"
+import HeadingCopy from "./HeadingCopy"
 import Word from "./Word"
 import { languages } from "../data/languages"
 import { getFarewellText } from "../data/farewells"
@@ -101,8 +102,7 @@ export default function AssemblyEndgame() {
     <main className="text-center">
       { isGameWon && <Confetti numberOfPieces={600} initialVelocityY={{ min: 0, max: 20 }} recycle={false} /> }
       <header>
-        <h1>Assembly: Endgame</h1>
-        <p>Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
+        <HeadingCopy />
       </header>
 
       <section className={clsx("game-status", isGameWon && "won", isGameLost && "lost", (isGameFarewell) && "farewell")}
