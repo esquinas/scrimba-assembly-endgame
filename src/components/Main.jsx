@@ -1,35 +1,28 @@
 import { useState } from "react"
 import { clsx } from "clsx/lite"
+// Components
+import Confetti from "react-confetti"
 import Chip from "./Chip"
 import HeadingCopy from "./HeadingCopy"
 import Keyboard from "./Keyboard"
 import StatusFarewell from "./StatusFarewell"
 import StatusLost from "./StatusLost"
 import StatusWon from "./StatusWon"
+import StatusForTheVisuallyImpaired from "./StatusForTheVisuallyImpaired"
 import Word from "./Word"
+// Misc
 import { languages } from "../data/languages"
 import getRandomWord from "../getRandomWord"
-import Confetti from "react-confetti"
-import StatusForTheVisuallyImpaired from "./StatusForTheVisuallyImpaired"
+import GameStatus from "../gameStatus"
 
 export default function AssemblyEndgame() {
   const [currentWord, setCurrentWord] = useState(getRandomWord())
   const [guessedLetters, setGuessedLetters] = useState([])
-
-  const numGuessesLeft = languages.length - 1
-  const wrongGuessCount =
-    guessedLetters.filter(letter => !currentWord.includes(letter)).length
-  const lastGuessedLetter = guessedLetters.at(-1)
-  const isGameIdle = (!lastGuessedLetter) || currentWord.includes(lastGuessedLetter)
-  const isGameWon = currentWord.split("").every(letter => guessedLetters.includes(letter))
-  const isGameLost = wrongGuessCount >= numGuessesLeft
-  const isGameOver = isGameWon || isGameLost
-  const isGameFarewell = !(isGameOver || isGameIdle)
-  const lostLanguage = languages[wrongGuessCount - 1]
+  const gameStatus = new GameStatus({ currentWord, guessedLetters, languages })
 
   const languageChips = languages.map((lang, index) => (
     <Chip key={lang.name}
-      isLost={index < wrongGuessCount}
+      isLost={index < gameStatus.wrongGuessCount}
       name={lang.name}
       color={lang.color}
       backgroundColor={lang.backgroundColor}
@@ -42,22 +35,16 @@ export default function AssemblyEndgame() {
   }
 
   function renderGameStatus() {
-    if (isGameWon) {
-      return (
-        <StatusWon />
-      )
+    if (gameStatus.isGameWon) {
+      return <StatusWon />
     }
 
-    if (isGameLost) {
-      return (
-        <StatusLost />
-      )
+    if (gameStatus.isGameLost) {
+      return <StatusLost />
     }
 
-    if (isGameFarewell) {
-      return (
-        <StatusFarewell lostLanguage={lostLanguage} />
-      )
+    if (gameStatus.isGameFarewell) {
+      return <StatusFarewell lostLanguage={gameStatus.lostLanguage} />
     }
 
     return null
@@ -65,12 +52,18 @@ export default function AssemblyEndgame() {
 
   return (
     <main className="text-center">
-      { isGameWon && <Confetti numberOfPieces={600} initialVelocityY={{ min: 0, max: 20 }} recycle={false} /> }
+      { gameStatus.isGameWon && <Confetti numberOfPieces={600} initialVelocityY={{ min: 0, max: 20 }} recycle={false} /> }
       <header>
         <HeadingCopy />
       </header>
 
-      <section className={clsx("game-status", isGameWon && "won", isGameLost && "lost", isGameFarewell && "farewell")}
+      <section className={
+          clsx("game-status",
+            gameStatus.isGameWon      && "won",
+            gameStatus.isGameLost     && "lost",
+            gameStatus.isGameFarewell && "farewell"
+          )
+        }
         aria-live="polite" role="status" >
         { renderGameStatus() }
       </section>
@@ -80,7 +73,7 @@ export default function AssemblyEndgame() {
       </section>
 
       <section className="word">
-        <Word currentWord={currentWord} guessedLetters={guessedLetters} isGameLost={isGameLost} />
+        <Word currentWord={currentWord} guessedLetters={guessedLetters} isGameLost={gameStatus.isGameLost} />
       </section>
 
       <section className="sr-only" aria-live="polite" role="status">
@@ -92,12 +85,12 @@ export default function AssemblyEndgame() {
           classToggle={[ "wrong", "correct" ]}
           currentWord={currentWord}
           guessedLetters={guessedLetters}
-          disabled={isGameOver}
+          disabled={gameStatus.isGameOver}
           setGuessedLetters={setGuessedLetters}
         />
       </section>
 
-      { isGameOver  &&
+      { gameStatus.isGameOver  &&
         <button className="new-game" onClick={ _ => startNewGame() }>New Game</button>
       }
     </main>
