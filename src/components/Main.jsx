@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { clsx } from "clsx/lite"
 import Chip from "./Chip"
+import Word from "./Word"
 import { languages } from "../data/languages"
 import { getFarewellText } from "../data/farewells"
 import getRandomWord from "../getRandomWord"
@@ -31,16 +32,6 @@ export default function AssemblyEndgame() {
       backgroundColor={lang.backgroundColor}
     />
   ))
-  const letterElements = currentWord.split("").map((letter, index) => {
-    const shouldRevealLetter = isGameLost || guessedLetters.includes(letter)
-    const letterClassName = clsx("char-box", isGameLost && !guessedLetters.includes(letter) && "wrong")
-
-    return (
-      <span className={letterClassName} key={index + letter}>
-        {shouldRevealLetter && letter }
-      </span>
-    )
-  })
   const alphabetButtons = alphabet.split("").map((letter, index) => {
     const isLetterInWord = checkLetterIsInWord(letter)
     const className = clsx(
@@ -124,7 +115,7 @@ export default function AssemblyEndgame() {
       </section>
 
       <section className="word">
-        { letterElements }
+        <Word currentWord={currentWord} guessedLetters={guessedLetters} isGameLost={isGameLost} />
       </section>
 
       <section className="sr-only" aria-live="polite" role="status">
