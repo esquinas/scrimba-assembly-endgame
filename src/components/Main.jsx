@@ -2,11 +2,14 @@ import { useState } from "react"
 import { clsx } from "clsx/lite"
 import Chip from "./Chip"
 import HeadingCopy from "./HeadingCopy"
+import StatusFarewell from "./StatusFarewell"
+import StatusLost from "./StatusLost"
+import StatusWon from "./StatusWon"
 import Word from "./Word"
 import { languages } from "../data/languages"
-import { getFarewellText } from "../data/farewells"
 import getRandomWord from "../getRandomWord"
 import Confetti from "react-confetti"
+import StatusForTheVisuallyImpaired from "./StatusForTheVisuallyImpaired"
 
 export default function AssemblyEndgame() {
   const [currentWord, setCurrentWord] = useState(getRandomWord())
@@ -22,7 +25,6 @@ export default function AssemblyEndgame() {
   const isGameOver = isGameWon || isGameLost
   const isGameFarewell = !(isGameOver || isGameIdle)
   const lostLanguage = languages[wrongGuessCount - 1]
-  const farewellText = getFarewellText(lostLanguage?.name)
 
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
   const languageChips = languages.map((lang, index) => (
@@ -71,27 +73,19 @@ export default function AssemblyEndgame() {
   function renderGameStatus() {
     if (isGameWon) {
       return (
-        <>
-          <h2>You win!</h2>
-          <p>Well done! 🎉</p>
-        </>
+        <StatusWon />
       )
     }
 
     if (isGameLost) {
       return (
-        <>
-          <h2>Game over!</h2>
-          <p>You lose! Better start learning Assembly 😭</p>
-        </>
+        <StatusLost />
       )
     }
 
     if (isGameFarewell) {
       return (
-        <>
-          <p>"{farewellText}"</p>
-        </>
+        <StatusFarewell lostLanguage={lostLanguage} />
       )
     }
 
@@ -105,7 +99,7 @@ export default function AssemblyEndgame() {
         <HeadingCopy />
       </header>
 
-      <section className={clsx("game-status", isGameWon && "won", isGameLost && "lost", (isGameFarewell) && "farewell")}
+      <section className={clsx("game-status", isGameWon && "won", isGameLost && "lost", isGameFarewell && "farewell")}
         aria-live="polite" role="status" >
         { renderGameStatus() }
       </section>
@@ -119,20 +113,7 @@ export default function AssemblyEndgame() {
       </section>
 
       <section className="sr-only" aria-live="polite" role="status">
-        <p>
-          {
-            lastGuessedLetter && (
-              currentWord.includes(lastGuessedLetter) ?
-                `Correct! The letter ${lastGuessedLetter.toUpperCase()} is in the word.` :
-                `Sorry, the letter ${lastGuessedLetter.toUpperCase()} is not in the word.`
-              )
-          }
-        </p>
-        <p>Current word: {
-          currentWord.split("")
-            .map(letter =>guessedLetters.includes(letter) ? `${letter}. ` : "blank. ")
-            .join(" ")
-        }</p>
+        <StatusForTheVisuallyImpaired currentWord={currentWord} guessedLetters={guessedLetters} />
       </section>
 
       <section className="keyboard">
