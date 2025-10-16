@@ -90,8 +90,13 @@ export default function AssemblyEndgame() {
         />
       </section>
 
-      { game.isOver  &&
-        <button className="new-game" onClick={ _ => startNewGame() }>New Game</button>
+      { game.isOver &&
+          <button className="new-game" onClick={ _ => startNewGame() }>New Game</button>
+      }
+
+      {
+        game.isLost &&
+          <dialog open className="you-are-dead-overlay-fx"></dialog>
       }
     </main>
   )
