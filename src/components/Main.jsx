@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { clsx } from "clsx/lite"
 import Chip from "./Chip"
-import { languages } from "./languages"
-import { getFarewellText } from "./farewells"
-import getRandomWord from "./getRandomWord"
+import { languages } from "../data/languages"
+import { getFarewellText } from "../data/farewells"
+import getRandomWord from "../getRandomWord"
 import Confetti from "react-confetti"
 
 export default function AssemblyEndgame() {
