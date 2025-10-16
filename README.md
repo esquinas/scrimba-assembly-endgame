@@ -1,4 +1,5 @@
 # Getting Started
+
 Install the dependencies and build the project:
 ```
 npm install
@@ -13,6 +14,22 @@ Run the project with hot reload:
 ```
 npm run dev
 ```
+
+Check code style:
+```
+npm run lint
+```
+
+## Deploy
+
+This project is hosted in [Github.io_](https://esquinas.github.io/scrimba-assembly-endgame/) (GitHub Pages),
+to deploy changes to the code, you just have to push to the `main` branch:
+```
+git pull origin main && git push origin main
+```
+
+GitHub Actions described in `.github/workflows/static.yml` will run and production code will be automatically updated.
+
 
 ## Screenshot
 
