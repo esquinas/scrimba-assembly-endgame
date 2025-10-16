@@ -2,8 +2,8 @@ import { clsx } from "clsx/lite"
 
 export default function Word(props) {
   const letterElements = props.currentWord.split("").map((letter, index) => {
-    const shouldRevealLetter = props.isGameLost || props.guessedLetters.includes(letter)
-    const letterClassName = clsx("char-box", props.isGameLost && !props.guessedLetters.includes(letter) && "wrong")
+    const shouldRevealLetter = props.isLost || props.guessedLetters.includes(letter)
+    const letterClassName = clsx("char-box", props.isLost && !props.guessedLetters.includes(letter) && "wrong")
 
     return (
       <span className={letterClassName} key={index + letter}>

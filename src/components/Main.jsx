@@ -18,11 +18,11 @@ import GameStatus from "../gameStatus"
 export default function AssemblyEndgame() {
   const [currentWord, setCurrentWord] = useState(getRandomWord())
   const [guessedLetters, setGuessedLetters] = useState([])
-  const gameStatus = new GameStatus({ currentWord, guessedLetters, languages })
+  const game = new GameStatus({ currentWord, guessedLetters, languages })
 
   const languageChips = languages.map((lang, index) => (
     <Chip key={lang.name}
-      isLost={index < gameStatus.wrongGuessCount}
+      isLost={index < game.wrongGuessCount}
       name={lang.name}
       color={lang.color}
       backgroundColor={lang.backgroundColor}
@@ -35,16 +35,16 @@ export default function AssemblyEndgame() {
   }
 
   function renderGameStatus() {
-    if (gameStatus.isGameWon) {
+    if (game.isWon) {
       return <StatusWon />
     }
 
-    if (gameStatus.isGameLost) {
+    if (game.isLost) {
       return <StatusLost />
     }
 
-    if (gameStatus.isGameFarewell) {
-      return <StatusFarewell lostLanguage={gameStatus.lostLanguage} />
+    if (game.isFarewell) {
+      return <StatusFarewell lostLanguage={game.lostLanguage} />
     }
 
     return null
@@ -52,16 +52,16 @@ export default function AssemblyEndgame() {
 
   return (
     <main className="text-center">
-      { gameStatus.isGameWon && <Confetti numberOfPieces={600} initialVelocityY={{ min: 0, max: 20 }} recycle={false} /> }
+      { game.isWon && <Confetti numberOfPieces={600} initialVelocityY={{ min: 0, max: 20 }} recycle={false} /> }
       <header>
         <HeadingCopy />
       </header>
 
       <section className={
           clsx("game-status",
-            gameStatus.isGameWon      && "won",
-            gameStatus.isGameLost     && "lost",
-            gameStatus.isGameFarewell && "farewell"
+            game.isWon      && "won",
+            game.isLost     && "lost",
+            game.isFarewell && "farewell"
           )
         }
         aria-live="polite" role="status" >
@@ -73,7 +73,7 @@ export default function AssemblyEndgame() {
       </section>
 
       <section className="word">
-        <Word currentWord={currentWord} guessedLetters={guessedLetters} isGameLost={gameStatus.isGameLost} />
+        <Word currentWord={currentWord} guessedLetters={guessedLetters} isLost={game.isLost} />
       </section>
 
       <section className="sr-only" aria-live="polite" role="status">
@@ -85,12 +85,12 @@ export default function AssemblyEndgame() {
           classToggle={[ "wrong", "correct" ]}
           currentWord={currentWord}
           guessedLetters={guessedLetters}
-          disabled={gameStatus.isGameOver}
+          disabled={game.isOver}
           setGuessedLetters={setGuessedLetters}
         />
       </section>
 
-      { gameStatus.isGameOver  &&
+      { game.isOver  &&
         <button className="new-game" onClick={ _ => startNewGame() }>New Game</button>
       }
     </main>

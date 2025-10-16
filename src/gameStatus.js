@@ -12,21 +12,21 @@ export default class GameStatus {
     this.#numGuessesLeft = languages.length - 1
   }
 
-  get isGameIdle() {
-    return !this.isGameOver && (!this.#lastGuessedLetter || this.currentWord.includes(this.#lastGuessedLetter))
+  get isIdle() {
+    return !this.isOver && (!this.#lastGuessedLetter || this.currentWord.includes(this.#lastGuessedLetter))
   }
-  get isGameWon() {
+  get isWon() {
     if (this.currentWord === undefined) return false
 
     return this.currentWord.split("").every(letter => this.guessedLetters.includes(letter))
   }
-  get isGameLost() {
+  get isLost() {
     return this.wrongGuessCount >= this.#numGuessesLeft
   }
-  get isGameOver() {
-    return this.isGameWon || this.isGameLost
+  get isOver() {
+    return this.isWon || this.isLost
   }
-  get isGameFarewell() {
-    return !this.isGameOver && !this.isGameIdle
+  get isFarewell() {
+    return !this.isOver && !this.isIdle
   }
 }
