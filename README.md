@@ -37,8 +37,8 @@ GitHub Actions described in `.github/workflows/static.yml` will run and producti
 
 ## ToDo
 
-- [ ] Extract game components, reduce lines of code in `App.jsx`.
-- [ ] Organize codebase better into conventional folders: i.e. `src/`
+- [x] Extract game components, reduce lines of code in `App.jsx`.
+- [x] Organize codebase better into conventional folders: i.e. `src/`
 
 ## About Scrimba
 
