@@ -39,11 +39,16 @@ export const languages = [
     backgroundColor: "#D02B2B",
     color: "#F9F4DA",
   },
-  // {
-  //   name: "C",
-  //   backgroundColor: "#7A5EA7",
-  //   color: "#F9F4DA",
-  // },
+  {
+     name: "C",
+     backgroundColor: "#7A5EA7",
+     color: "#F9F4DA",
+  },
+  {
+    name: "Basic",
+    backgroundColor: "pink",
+    color: "white"
+  },
   {
     name: "Assembly",
     backgroundColor: "#2D519F",
